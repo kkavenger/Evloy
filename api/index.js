@@ -12,7 +12,8 @@ mongoose.connect(process.env.MONGO).then(() => {
 const searchSchema = new mongoose.Schema({
     keyword: String,
     timestamp: { type: Date, default: Date.now },
-  });
+    month: { type: String, default: () => new Date().toLocaleString('en-US', { month: 'long' }) },
+});
   
 const SearchEntry = mongoose.model('SearchEntry', searchSchema);
 
@@ -37,7 +38,7 @@ app.get('/api/searchVolume/:keyword', async (req, res) => {
     const { keyword } = req.params;
   
     try {
-      const searchVolume = await SearchEntry.countDocuments({ keyword });
+      const searchVolume = await SearchEntry.countDocuments({ keyword, month: new Date().toLocaleString('en-US', { month: 'long' }) });
       res.json({ keyword, searchVolume });
     } catch (error) {
       console.error(error);

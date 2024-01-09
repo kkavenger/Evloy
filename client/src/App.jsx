@@ -38,7 +38,7 @@ export default function App() {
       </div>
       {showSearchVolume && keyword !== '' && searchVolume !== null && (
         <p className="mt-4">
-          Search volume for "{keyword}": {searchVolume}
+          Search volume for &ldquo;{keyword}&rdquo; : {searchVolume}
         </p>
       )}
     </div>
